@@ -195,6 +195,10 @@ const App = () => {
                     <div className="text-gray-700 font-bold text-lg leading-relaxed">
                       工程報價單高達 <span className="text-4xl font-black text-rose-500 underline decoration-pink-300 decoration-4 underline-offset-4">65%</span> 的補助金支援！
                     </div>
+                    {/* 增加審核註記 */}
+                    <div className="text-xs text-rose-400 font-bold mt-2">
+                      ※ 補助資格與撥付金額需經政府相關單位最終審核為準
+                    </div>
                   </div>
                   <div className="space-y-6">
                     <h3 className="text-base font-bold text-gray-400 uppercase tracking-widest border-b border-pink-50 pb-3">申請門檻</h3>
