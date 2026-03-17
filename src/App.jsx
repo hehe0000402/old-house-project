@@ -83,9 +83,12 @@ const App = () => {
     return () => unsubscribe();
   }, [user]);
 
-  // 3. 串接 Google 表單 (已填入您的真實 Entry ID)
+  // 3. 串接 Google 表單
   const sendToGoogleForm = async (data) => {
-    const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfpX4W3zX_M8vXk_D-yL-l9-mU-n-E-v-Q/formResponse";
+    // 已更新為您提供的真實表單 ID
+    const FORM_ID = "1mrWxsBbWswnI6NBI6y7a5YXHyfT7tc_IoVY4Tb3KUlI"; 
+    const GOOGLE_FORM_URL = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
+    
     const formBody = new URLSearchParams();
     formBody.append('entry.238163847', data.name);    // 姓名
     formBody.append('entry.1263271594', data.phone);  // 電話
@@ -93,15 +96,18 @@ const App = () => {
     formBody.append('entry.710276016', data.address);  // 地址
     formBody.append('entry.170423975', `申請項目：室外(${data.outdoor.join(',')}) 室內(${data.indoor.join(',')}) 加碼(${data.extra ? '是' : '否'})`); 
 
+    console.log("正在送出至 Google 表單...", data);
+
     try {
       await fetch(GOOGLE_FORM_URL, {
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'no-cors', 
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formBody
       });
+      console.log("送出請求已發出 (請檢查 Google 表單回應分頁)");
     } catch (e) {
-      console.error("Google Form Submit Error");
+      console.error("Google 表單送出失敗:", e);
     }
   };
 
@@ -124,11 +130,13 @@ const App = () => {
           userId: user?.uid || 'anonymous'
         });
       }
+      // 送出至 Google 表單
       await sendToGoogleForm(formData);
+      
       setSubmitted(true);
       setFormData({ name: '', phone: '', lineId: '', address: '', outdoor: [], indoor: [], extra: false });
     } catch (error) {
-      console.error(error);
+      console.error("提交出錯:", error);
     } finally {
       setIsSending(false);
     }
@@ -150,7 +158,9 @@ const App = () => {
               </div>
               <div className="bg-white p-4 rounded-2xl border-2 border-dashed border-pink-200 mb-6 text-center shadow-inner">
                 <p className="text-gray-500 text-xs mb-1">超強有感補助</p>
-                <div className="text-2xl font-black text-rose-500">報價單 <span className="text-3xl underline decoration-pink-300">65%</span> 補助金</div>
+                <div className="text-2xl font-black text-rose-500">
+                  報價單 <span className="text-3xl underline decoration-pink-300">65%</span> 補助金
+                </div>
                 <p className="text-[10px] text-gray-400 mt-1">※ 需經政府審核通過後發放</p>
               </div>
               <div className="bg-pink-50/50 p-4 rounded-2xl border border-pink-100 space-y-2 text-sm text-gray-700">
