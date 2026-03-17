@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Ruler, Mail, User, Hash } from 'lucide-react';
+import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Ruler, Mail, Hash } from 'lucide-react';
 
 // Firebase 相關引入 (保持預設配置，確保網頁穩定執行)
 import { initializeApp, getApps } from 'firebase/app';
@@ -138,7 +138,7 @@ const App = () => {
 
       {/* 導覽分頁 */}
       <nav className="flex justify-center px-4 mb-10 shrink-0">
-        <div className="bg-white/70 backdrop-blur-md p-2 rounded-[2.5rem] border border-pink-100 flex gap-1 shadow-md w-full max-w-lg">
+        <div className="bg-white/70 backdrop-blur-md p-2 rounded-[2.5rem] border border-pink-100 flex gap-1 shadow-md w-full max-lg:max-w-lg">
           {[
             { id: 'intro', label: '補助計畫', icon: <Info size={18} /> },
             { id: 'safety', label: '安全評估', icon: <Shield size={18} /> },
@@ -407,58 +407,51 @@ const App = () => {
         )}
       </main>
 
-      {/* 頁尾 (新增詳細聯絡資訊) */}
-      <footer className="py-16 px-6 border-t border-pink-100 bg-white/60 mt-auto shadow-inner">
-        <div className="max-w-xl mx-auto space-y-8">
+      {/* 頁尾 (移除聯絡人區塊) */}
+      <footer className="py-12 px-6 border-t border-pink-100 bg-white/60 mt-auto shadow-inner">
+        <div className="max-w-xl mx-auto space-y-6">
           <div className="text-center">
-            <h3 className="text-xl font-black text-gray-800 tracking-wider mb-2">郡翔室內裝修有限公司</h3>
-            <p className="text-pink-400 font-bold text-sm tracking-[0.2em] uppercase">Jun Xiang Interior Decoration</p>
+            <h3 className="text-lg font-black text-gray-800 tracking-wider mb-1">郡翔室內裝修有限公司</h3>
+            <p className="text-pink-400 font-bold text-[10px] tracking-[0.2em] uppercase">Jun Xiang Interior Decoration</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white/40 p-8 rounded-[2rem] border border-pink-50">
-            <div className="flex items-center gap-4 group">
-              <div className="w-12 h-12 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all">
-                <User size={22} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white/40 p-6 rounded-[1.5rem] border border-pink-50">
+            {/* 電話 */}
+            <a href="tel:0960396086" className="flex items-center gap-3 group transition-all">
+              <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all shrink-0">
+                <Phone size={18} />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">聯絡人</span>
-                <span className="text-lg font-black text-gray-700">卓先生</span>
-              </div>
-            </div>
-
-            <a href="tel:0960396086" className="flex items-center gap-4 group transition-all">
-              <div className="w-12 h-12 bg-rose-100 rounded-2xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all">
-                <Phone size={22} />
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span>
-                <span className="text-lg font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span>
+                <span className="text-base font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span>
               </div>
             </a>
 
-            <a href="mailto:heheooo@hotmail.com" className="flex items-center gap-4 group transition-all">
-              <div className="w-12 h-12 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all">
-                <Mail size={22} />
+            {/* Email */}
+            <a href="mailto:heheooo@hotmail.com" className="flex items-center gap-3 group transition-all">
+              <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
+                <Mail size={18} />
               </div>
               <div className="flex flex-col text-left overflow-hidden">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span>
-                <span className="text-base font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span>
+                <span className="text-sm font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span>
               </div>
             </a>
 
-            <div className="flex items-center gap-4 group">
-              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all">
-                <Hash size={22} />
+            {/* 統編 */}
+            <div className="flex items-center gap-3 group">
+              <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all shrink-0">
+                <Hash size={18} />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">統一編號</span>
-                <span className="text-lg font-black text-gray-700 tracking-widest">54756209</span>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">統一編號</span>
+                <span className="text-base font-black text-gray-700 tracking-widest">54756209</span>
               </div>
             </div>
           </div>
 
-          <div className="text-center pt-4">
-            <p className="text-xs text-gray-300 font-medium tracking-widest leading-relaxed">
+          <div className="text-center pt-2">
+            <p className="text-[10px] text-gray-300 font-medium tracking-widest leading-relaxed">
               專業室內設計與裝修諮詢 ． 老屋活化專家<br/>
               © 2024 郡翔室內裝修有限公司 ． 版權所有
             </p>
