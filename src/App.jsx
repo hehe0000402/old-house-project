@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Ruler } from 'lucide-react';
+import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Ruler, Mail, User, Hash } from 'lucide-react';
 
 // Firebase 相關引入 (保持預設配置，確保網頁穩定執行)
 import { initializeApp, getApps } from 'firebase/app';
@@ -123,33 +123,33 @@ const App = () => {
       {/* 頂部裝飾 */}
       <div className="h-2 bg-gradient-to-r from-pink-300 via-rose-300 to-pink-300"></div>
       
-      <header className="py-10 px-6 text-center shrink-0 relative">
-        <div className="absolute top-4 left-4 opacity-10"><Home size={60} /></div>
-        <div className="relative inline-block mb-3">
-          <Heart className="text-rose-400 fill-rose-400 absolute -top-4 -right-4 rotate-12" size={24} />
-          <h1 className="text-3xl font-black text-gray-800 tracking-tight">老屋延壽申請</h1>
+      <header className="py-12 px-6 text-center shrink-0 relative">
+        <div className="absolute top-6 left-6 opacity-10"><Home size={80} /></div>
+        <div className="relative inline-block mb-4">
+          <Heart className="text-rose-400 fill-rose-400 absolute -top-5 -right-6 rotate-12" size={28} />
+          <h1 className="text-4xl font-black text-gray-800 tracking-tight">老屋延壽申請</h1>
         </div>
-        <div className="text-pink-500 font-bold text-sm tracking-[0.2em] flex items-center justify-center gap-2">
-          <ChevronRight size={14} className="text-pink-300" />
+        <div className="text-pink-500 font-bold text-base tracking-[0.2em] flex items-center justify-center gap-2">
+          <ChevronRight size={18} className="text-pink-300" />
           郡翔室內裝修有限公司
-          <ChevronRight size={14} className="text-pink-300" />
+          <ChevronRight size={18} className="text-pink-300" />
         </div>
       </header>
 
       {/* 導覽分頁 */}
-      <nav className="flex justify-center px-4 mb-8 shrink-0">
-        <div className="bg-white/70 backdrop-blur-md p-1.5 rounded-[2rem] border border-pink-100 flex gap-1 shadow-sm w-full max-w-md">
+      <nav className="flex justify-center px-4 mb-10 shrink-0">
+        <div className="bg-white/70 backdrop-blur-md p-2 rounded-[2.5rem] border border-pink-100 flex gap-1 shadow-md w-full max-w-lg">
           {[
-            { id: 'intro', label: '補助計畫', icon: <Info size={16} /> },
-            { id: 'safety', label: '安全評估', icon: <Shield size={16} /> },
-            { id: 'apply', label: '預約申請', icon: <ClipboardList size={16} /> }
+            { id: 'intro', label: '補助計畫', icon: <Info size={18} /> },
+            { id: 'safety', label: '安全評估', icon: <Shield size={18} /> },
+            { id: 'apply', label: '預約申請', icon: <ClipboardList size={18} /> }
           ].map(t => (
             <button 
               key={t.id} 
               onClick={() => setActiveTab(t.id)} 
-              className={`flex-1 py-3 rounded-[1.5rem] text-sm font-bold flex items-center justify-center gap-2 transition-all duration-300 ${
+              className={`flex-1 py-4 rounded-[2rem] text-base font-bold flex items-center justify-center gap-2 transition-all duration-300 ${
                 activeTab === t.id 
-                ? 'bg-white text-rose-500 shadow-md ring-1 ring-pink-50' 
+                ? 'bg-white text-rose-500 shadow-lg ring-1 ring-pink-50' 
                 : 'text-gray-400 hover:text-pink-300'
               }`}
             >
@@ -160,55 +160,55 @@ const App = () => {
       </nav>
 
       {/* 主要內容 */}
-      <main className="px-6 pb-20 max-w-lg mx-auto flex-grow w-full">
+      <main className="px-6 pb-24 max-w-xl mx-auto flex-grow w-full">
         {submitted ? (
-          <div className="bg-white p-12 rounded-[2.5rem] shadow-xl border border-pink-100 text-center animate-bounceIn">
-            <div className="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="text-rose-400" size={40} />
+          <div className="bg-white p-14 rounded-[3rem] shadow-xl border border-pink-100 text-center animate-bounceIn">
+            <div className="w-24 h-24 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-8">
+              <CheckCircle className="text-rose-400" size={50} />
             </div>
-            <h2 className="text-2xl font-black text-gray-800">申請已送出！</h2>
-            <p className="text-gray-500 text-sm mt-3 leading-relaxed">
+            <h2 className="text-3xl font-black text-gray-800">申請已送出！</h2>
+            <p className="text-gray-600 text-lg mt-4 leading-relaxed font-medium">
               資料已同步傳送至您的 Google 表單，<br/>郡翔專業團隊將儘速聯繫您。✨
             </p>
             <button 
               onClick={() => {setSubmitted(false); setActiveTab('intro')}} 
-              className="mt-8 px-10 py-3 bg-rose-50 text-rose-500 font-bold rounded-2xl active:scale-95 transition-all shadow-sm"
+              className="mt-10 px-12 py-4 bg-rose-50 text-rose-500 font-bold text-lg rounded-2xl active:scale-95 transition-all shadow-sm"
             >
               返回首頁
             </button>
           </div>
         ) : (
-          <div className="animate-fadeIn space-y-6">
+          <div className="animate-fadeIn space-y-8">
             {/* 計畫介紹分頁 */}
             {activeTab === 'intro' && (
-              <div className="space-y-6">
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-pink-100 text-left relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-pink-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
-                  <h2 className="text-xl font-black text-gray-800 mb-5 flex items-center gap-2 relative">
-                    <Star className="text-rose-400 fill-rose-400" size={20} />
+              <div className="space-y-8">
+                <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100 text-left relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-pink-50 rounded-full -mr-20 -mt-20 opacity-50"></div>
+                  <h2 className="text-2xl font-black text-gray-800 mb-6 flex items-center gap-3 relative">
+                    <Star className="text-rose-400 fill-rose-400" size={24} />
                     政府補助概要
                   </h2>
-                  <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-5 rounded-3xl mb-6 border border-pink-100 shadow-inner">
-                    <p className="text-rose-600 font-bold flex items-center gap-2 text-sm mb-2">
-                      <Gift size={18} /> 這是您的起家厝大變身的機會
+                  <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-6 rounded-[2rem] mb-8 border border-pink-100 shadow-inner">
+                    <p className="text-rose-600 font-bold flex items-center gap-2 text-base mb-3">
+                      <Gift size={22} /> 這是您的起家厝大變身的機會
                     </p>
-                    <div className="text-gray-700 font-medium">
-                      工程報價單高達 <span className="text-3xl font-black text-rose-500 underline decoration-pink-300 decoration-4 underline-offset-4">65%</span> 的補助金支援！
+                    <div className="text-gray-700 font-bold text-lg leading-relaxed">
+                      工程報價單高達 <span className="text-4xl font-black text-rose-500 underline decoration-pink-300 decoration-4 underline-offset-4">65%</span> 的補助金支援！
                     </div>
                   </div>
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest border-b border-pink-50 pb-2">申請門檻</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <CheckCircle className="text-rose-400 shrink-0 mt-0.5" size={16} />
+                  <div className="space-y-6">
+                    <h3 className="text-base font-bold text-gray-400 uppercase tracking-widest border-b border-pink-50 pb-3">申請門檻</h3>
+                    <ul className="space-y-4">
+                      <li className="flex items-start gap-4 text-base text-gray-700 leading-relaxed">
+                        <CheckCircle className="text-rose-400 shrink-0 mt-1" size={20} />
                         <span>屋齡需滿 <span className="font-bold text-rose-500">30 年以上</span> 之合法建築物。</span>
                       </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <CheckCircle className="text-rose-400 shrink-0 mt-0.5" size={16} />
-                        <span>需為 <span className="font-bold">全棟住宅使用</span> (排除營業性質場所)。</span>
+                      <li className="flex items-start gap-4 text-base text-gray-700 leading-relaxed">
+                        <CheckCircle className="text-rose-400 shrink-0 mt-1" size={20} />
+                        <span>需為 <span className="font-bold text-gray-900">全棟住宅使用</span> (排除營業性質場所)。</span>
                       </li>
-                      <li className="flex items-start gap-3 text-sm text-rose-400 font-bold">
-                        <AlertCircle className="shrink-0 mt-0.5" size={16} />
+                      <li className="flex items-start gap-4 text-base text-rose-400 font-bold leading-relaxed">
+                        <AlertCircle className="shrink-0 mt-1" size={20} />
                         <span>特別注意：違章建築部分不予補助。</span>
                       </li>
                     </ul>
@@ -219,89 +219,89 @@ const App = () => {
 
             {/* 安全評估分頁 */}
             {activeTab === 'safety' && (
-              <div className="space-y-6 text-left">
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-pink-100">
-                  <h2 className="text-xl font-black text-gray-800 mb-5 flex items-center gap-2">
-                    <Shield className="text-rose-400" size={22} />
+              <div className="space-y-8 text-left">
+                <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100">
+                  <h2 className="text-2xl font-black text-gray-800 mb-6 flex items-center gap-3">
+                    <Shield className="text-rose-400" size={26} />
                     結構安全性能評估
                   </h2>
                   
-                  <div className="p-4 bg-amber-50 rounded-2xl mb-6 border border-amber-100 flex gap-3 shadow-inner">
-                    <AlertCircle className="text-amber-500 shrink-0 mt-0.5" size={18} />
-                    <p className="text-xs font-bold text-amber-700 leading-normal">
-                      重要備註：安全性評估之最終結果<span className="text-rose-500 underline mx-1 decoration-2">不影響補助申請</span>，請屋主安心進行評估程序。
+                  <div className="p-5 bg-amber-50 rounded-[1.5rem] mb-8 border border-amber-100 flex gap-4 shadow-inner">
+                    <AlertCircle className="text-amber-500 shrink-0 mt-1" size={22} />
+                    <p className="text-sm font-bold text-amber-700 leading-relaxed">
+                      重要備註：安全性評估之最終結果<span className="text-rose-500 underline mx-1 decoration-2 font-black">不影響補助申請</span>，請屋主安心進行評估程序。
                     </p>
                   </div>
 
-                  <p className="text-sm text-gray-600 mb-6 font-bold flex items-center gap-2">
-                    <Star size={16} className="text-pink-300 fill-current" />
+                  <p className="text-base text-gray-600 mb-8 font-bold flex items-center gap-3">
+                    <Star size={20} className="text-pink-300 fill-current" />
                     合作單位：台中市土木技師公會
                   </p>
 
-                  <div className="overflow-hidden rounded-[1.5rem] border border-pink-50 shadow-sm">
-                    <table className="w-full text-sm">
+                  <div className="overflow-hidden rounded-[2rem] border border-pink-50 shadow-md">
+                    <table className="w-full text-base">
                       <thead className="bg-pink-100/50">
-                        <tr className="text-xs font-bold text-gray-500">
-                          <td className="p-4">收費項目</td>
-                          <td className="p-4 text-right">收費標準</td>
+                        <tr className="text-sm font-bold text-gray-500">
+                          <td className="p-5">收費項目</td>
+                          <td className="p-5 text-right">收費標準</td>
                         </tr>
                       </thead>
                       <tbody className="bg-white">
                         <tr className="border-b border-pink-50">
-                          <td className="p-4 font-bold text-gray-700">掛號費</td>
-                          <td className="p-4 text-right font-black text-gray-800">2,000 元/案</td>
+                          <td className="p-5 font-bold text-gray-700">掛號費</td>
+                          <td className="p-5 text-right font-black text-gray-800 text-lg">2,000 元/案</td>
                         </tr>
                         <tr className="border-b border-pink-50">
-                          <td className="p-4 font-bold text-gray-700">初步評估費</td>
-                          <td className="p-4 text-right font-black text-rose-500">15,000 元/棟起</td>
+                          <td className="p-5 font-bold text-gray-700">初步評估費</td>
+                          <td className="p-5 text-right font-black text-rose-500 text-lg">15,000 元/棟起</td>
                         </tr>
-                        <tr className="border-b border-pink-50 bg-rose-50/20">
-                          <td className="p-4 font-bold text-rose-600 italic">最低收費</td>
-                          <td className="p-4 text-right font-black text-rose-500">20,000 元/案</td>
+                        <tr className="border-b border-pink-50 bg-rose-50/30">
+                          <td className="p-5 font-bold text-rose-600 italic">最低收費</td>
+                          <td className="p-5 text-right font-black text-rose-500 text-lg">20,000 元/案</td>
                         </tr>
                         <tr>
-                          <td className="p-4 font-bold text-gray-700">
+                          <td className="p-5 font-bold text-gray-700">
                             現場量測費
-                            <div className="text-[10px] text-gray-400 font-normal mt-1">※ 若原始無圖說需現場測繪</div>
+                            <div className="text-xs text-gray-400 font-normal mt-2 leading-relaxed">※ 若原始無圖說需現場測繪</div>
                           </td>
-                          <td className="p-4 text-right font-black text-gray-800">5,000 元</td>
+                          <td className="p-5 text-right font-black text-gray-800 text-lg">5,000 元</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                  <p className="text-[10px] text-gray-400 mt-4 text-right">※ 以上費用依台中市土木技師公會最終報價為準</p>
+                  <p className="text-xs text-gray-400 mt-6 text-right font-medium">※ 以上費用依台中市土木技師公會最終報價為準</p>
                 </div>
               </div>
             )}
 
             {/* 預約申請分頁 */}
             {activeTab === 'apply' && (
-              <form onSubmit={handleSubmit} className="space-y-6 text-left pb-10">
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-pink-100">
-                  <h2 className="text-xl font-black text-gray-800 mb-6 flex items-center gap-2">
-                    <ClipboardList className="text-rose-400" size={22} />
+              <form onSubmit={handleSubmit} className="space-y-8 text-left pb-12">
+                <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100">
+                  <h2 className="text-2xl font-black text-gray-800 mb-8 flex items-center gap-3">
+                    <ClipboardList className="text-rose-400" size={26} />
                     填寫預約資料
                   </h2>
                   
-                  <div className="space-y-6">
+                  <div className="space-y-8">
                     {/* 修繕項目勾選 */}
                     <div>
-                      <h3 className="text-xs font-black text-pink-400 mb-3 ml-1 flex items-center gap-2">
-                        <div className="w-1.5 h-3 bg-pink-300 rounded-full"></div>
+                      <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3">
+                        <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室外修繕 (必選一項)
                       </h3>
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         {outdoorOptions.map(opt => (
-                          <label key={opt.id} className="flex items-center p-4 rounded-2xl bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
+                          <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
                             <input 
                               type="checkbox" 
-                              className="w-5 h-5 accent-rose-400 rounded-lg border-pink-200"
+                              className="w-6 h-6 accent-rose-400 rounded-lg border-pink-200"
                               checked={formData.outdoor.includes(opt.id)}
                               onChange={() => handleCheckbox('outdoor', opt.id)}
                             />
-                            <div className="ml-3">
-                              <div className="text-sm font-bold text-gray-700">{opt.label}</div>
-                              <div className="text-[10px] text-rose-400">{opt.desc}</div>
+                            <div className="ml-4">
+                              <div className="text-base font-bold text-gray-700">{opt.label}</div>
+                              <div className="text-xs text-rose-400 mt-1">{opt.desc}</div>
                             </div>
                           </label>
                         ))}
@@ -309,52 +309,74 @@ const App = () => {
                     </div>
 
                     <div>
-                      <h3 className="text-xs font-black text-pink-400 mb-3 ml-1 flex items-center gap-2">
-                        <div className="w-1.5 h-3 bg-pink-300 rounded-full"></div>
+                      <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3">
+                        <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室內修繕 (可加選)
                       </h3>
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         {indoorOptions.map(opt => (
-                          <label key={opt.id} className="flex items-center p-4 rounded-2xl bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
+                          <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
                             <input 
                               type="checkbox" 
-                              className="w-5 h-5 accent-rose-400 rounded-lg border-pink-200"
+                              className="w-6 h-6 accent-rose-400 rounded-lg border-pink-200"
                               checked={formData.indoor.includes(opt.id)}
                               onChange={() => handleCheckbox('indoor', opt.id)}
                             />
-                            <div className="ml-3">
-                              <div className="text-sm font-bold text-gray-700">{opt.label}</div>
-                              <div className="text-[10px] text-rose-400">{opt.desc}</div>
+                            <div className="ml-4">
+                              <div className="text-base font-bold text-gray-700">{opt.label}</div>
+                              <div className="text-xs text-rose-400 mt-1">{opt.desc}</div>
                             </div>
                           </label>
                         ))}
                       </div>
                     </div>
 
+                    {/* 加碼補助選項 */}
+                    <div>
+                      <h3 className="text-sm font-black text-rose-500 mb-4 ml-2 flex items-center gap-3">
+                        <div className="w-2 h-4 bg-rose-300 rounded-full"></div>
+                        特殊補助對象 (可加選)
+                      </h3>
+                      <label className="flex items-center gap-5 p-6 bg-rose-50 rounded-[2rem] cursor-pointer border border-rose-100 active:bg-rose-100 transition-colors shadow-sm group">
+                        <input 
+                          type="checkbox" 
+                          className="w-7 h-7 accent-rose-500 rounded-lg"
+                          checked={formData.extra}
+                          onChange={(e) => setFormData({...formData, extra: e.target.checked})}
+                        />
+                        <div className="flex flex-col">
+                          <span className="text-base font-black text-rose-600 flex items-center gap-2">
+                            符合長照或高齡弱勢 <Star size={14} className="group-hover:rotate-45 transition-transform" />
+                          </span>
+                          <span className="text-xs text-rose-400 font-bold mt-1 leading-relaxed">符合條件者可額外補助 10 萬，最高補助 30 萬</span>
+                        </div>
+                      </label>
+                    </div>
+
                     {/* 基本資料輸入 */}
-                    <div className="space-y-4 pt-4 border-t border-pink-50">
-                      <h3 className="text-xs font-black text-gray-400 ml-1">聯繫資訊</h3>
+                    <div className="space-y-5 pt-8 border-t border-pink-50">
+                      <h3 className="text-sm font-black text-gray-400 ml-2">屋主聯繫資訊</h3>
                       <input 
                         required 
                         type="text" 
                         placeholder="屋主姓名" 
-                        className="w-full p-4 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner placeholder:text-gray-300"
+                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                       />
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-4">
                         <input 
                           required 
                           type="tel" 
                           placeholder="電話號碼" 
-                          className="w-full p-4 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-sm placeholder:text-gray-300"
+                          className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
                           value={formData.phone}
                           onChange={(e) => setFormData({...formData, phone: e.target.value})}
                         />
                         <input 
                           type="text" 
                           placeholder="LINE ID" 
-                          className="w-full p-4 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-sm placeholder:text-gray-300"
+                          className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
                           value={formData.lineId}
                           onChange={(e) => setFormData({...formData, lineId: e.target.value})}
                         />
@@ -363,34 +385,18 @@ const App = () => {
                         required 
                         type="text" 
                         placeholder="房屋地址" 
-                        className="w-full p-4 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner placeholder:text-gray-300"
+                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
                         value={formData.address}
                         onChange={(e) => setFormData({...formData, address: e.target.value})}
                       />
                     </div>
 
-                    {/* 加碼補助按鈕 */}
-                    <label className="flex items-center gap-4 p-5 bg-rose-50 rounded-[1.5rem] cursor-pointer border border-rose-100 active:bg-rose-100 transition-colors shadow-sm group">
-                      <input 
-                        type="checkbox" 
-                        className="w-6 h-6 accent-rose-500 rounded-lg"
-                        checked={formData.extra}
-                        onChange={(e) => setFormData({...formData, extra: e.target.checked})}
-                      />
-                      <div className="flex flex-col">
-                        <span className="text-sm font-black text-rose-600 flex items-center gap-1">
-                          符合長照或高齡弱勢 <Star size={12} className="group-hover:rotate-45 transition-transform" />
-                        </span>
-                        <span className="text-[11px] text-rose-400 font-medium">符合條件者可額外補助 10 萬，一共 30 萬</span>
-                      </div>
-                    </label>
-
                     <button 
                       disabled={isSending} 
                       type="submit" 
-                      className="w-full py-5 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-black rounded-3xl shadow-lg shadow-rose-100 flex items-center justify-center gap-3 active:scale-95 transition-all disabled:opacity-50"
+                      className="w-full py-6 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-black text-xl rounded-[2rem] shadow-lg shadow-rose-100 flex items-center justify-center gap-4 active:scale-95 transition-all disabled:opacity-50"
                     >
-                      {isSending ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
+                      {isSending ? <Loader2 className="animate-spin" size={24} /> : <Send size={24} />}
                       {isSending ? '資料傳送中...' : '送出預約申請'}
                     </button>
                   </div>
@@ -401,21 +407,77 @@ const App = () => {
         )}
       </main>
 
-      {/* 頁尾 */}
-      <footer className="py-12 px-6 text-center text-[10px] text-gray-300 border-t border-pink-50 bg-white/50 mt-auto">
-        <p className="tracking-widest mb-1 uppercase font-bold">Jun Xiang Interior Decoration</p>
-        <p>© 2024 郡翔室內裝修有限公司．版權所有</p>
+      {/* 頁尾 (新增詳細聯絡資訊) */}
+      <footer className="py-16 px-6 border-t border-pink-100 bg-white/60 mt-auto shadow-inner">
+        <div className="max-w-xl mx-auto space-y-8">
+          <div className="text-center">
+            <h3 className="text-xl font-black text-gray-800 tracking-wider mb-2">郡翔室內裝修有限公司</h3>
+            <p className="text-pink-400 font-bold text-sm tracking-[0.2em] uppercase">Jun Xiang Interior Decoration</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white/40 p-8 rounded-[2rem] border border-pink-50">
+            <div className="flex items-center gap-4 group">
+              <div className="w-12 h-12 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all">
+                <User size={22} />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">聯絡人</span>
+                <span className="text-lg font-black text-gray-700">卓先生</span>
+              </div>
+            </div>
+
+            <a href="tel:0960396086" className="flex items-center gap-4 group transition-all">
+              <div className="w-12 h-12 bg-rose-100 rounded-2xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all">
+                <Phone size={22} />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span>
+                <span className="text-lg font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span>
+              </div>
+            </a>
+
+            <a href="mailto:heheooo@hotmail.com" className="flex items-center gap-4 group transition-all">
+              <div className="w-12 h-12 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all">
+                <Mail size={22} />
+              </div>
+              <div className="flex flex-col text-left overflow-hidden">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span>
+                <span className="text-base font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span>
+              </div>
+            </a>
+
+            <div className="flex items-center gap-4 group">
+              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all">
+                <Hash size={22} />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">統一編號</span>
+                <span className="text-lg font-black text-gray-700 tracking-widest">54756209</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center pt-4">
+            <p className="text-xs text-gray-300 font-medium tracking-widest leading-relaxed">
+              專業室內設計與裝修諮詢 ． 老屋活化專家<br/>
+              © 2024 郡翔室內裝修有限公司 ． 版權所有
+            </p>
+          </div>
+        </div>
       </footer>
 
       {/* 動畫定義 */}
       <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes bounceIn { 0% { transform: scale(0.92); opacity: 0; } 70% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(1); } }
-        .animate-fadeIn { animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-        .animate-bounceIn { animation: bounceIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1.2) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounceIn { 0% { transform: scale(0.9); opacity: 0; } 70% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(1); } }
+        .animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-bounceIn { animation: bounceIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1.2) forwards; }
         
         /* 隱藏捲軸但保持滾動功能 */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        /* 優化表單輸入縮放 */
+        input, textarea, select { font-size: 16px !important; }
       ` }} />
     </div>
   );
