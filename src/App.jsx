@@ -1,39 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Ruler, Mail, Hash } from 'lucide-react';
+import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Mail, Hash } from 'lucide-react';
 
-// Firebase 相關引入 (保持預設配置，確保網頁穩定執行)
-import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp } from 'firebase/firestore';
-
-// --- Firebase 初始化與安全檢查 ---
-let db = null;
-let auth = null;
-let firebaseEnabled = false;
-
-try {
-  const firebaseConfig = {
-    apiKey: "", // 目前為空，程式會自動跳過雲端儲存，確保網頁不會變白屏
-    authDomain: "default-app-id.firebaseapp.com",
-    projectId: "default-app-id",
-    storageBucket: "default-app-id.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdefg"
-  };
-
-  if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "") {
-    const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-    auth = getAuth(app);
-    db = getFirestore(app);
-    firebaseEnabled = true;
-  }
-} catch (e) {
-  console.log("Firebase 模式目前關閉，將使用 Google 表單模式。");
-}
-
+// --- Firebase 初始化模擬 (確保預覽不報錯) ---
 const App = () => {
   const [activeTab, setActiveTab] = useState('intro');
-  const [user, setUser] = useState(null);
   const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -57,15 +27,8 @@ const App = () => {
 
   const indoorOptions = [
     { id: '居家安全', label: '居家安全及無障礙設備', desc: '改善老舊居住機能' },
-    { id: '管線更新', label: '管線修繕更新 (水電管線)', desc: '確保老屋用電安全' }
+    { id: '管線更新', label: '管線修繕更新 (水電管線)', desc: '確保老屋用電安全，水管更新，不怕漏水' }
   ];
-
-  useEffect(() => {
-    if (!firebaseEnabled || !auth) return;
-    signInAnonymously(auth).catch((err) => console.error("Auth Error:", err));
-    const unsubscribe = onAuthStateChanged(auth, setUser);
-    return () => unsubscribe();
-  }, []);
 
   const sendToGoogleForm = async (data) => {
     const FORM_ID = "1FAIpQLSchh1k7l7L6gG4ydGvsON9YzboWSoFS8M4OCdD16Byeu5BJhw";
@@ -88,7 +51,7 @@ const App = () => {
       });
       return true;
     } catch (e) {
-      console.error("Submit Error:", e);
+      console.error(e);
       return false;
     }
   };
@@ -107,22 +70,20 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSending(true);
-    try {
-      await sendToGoogleForm(formData);
+    const success = await sendToGoogleForm(formData);
+    if (success) {
       setSubmitted(true);
       setFormData({ name: '', phone: '', lineId: '', address: '', outdoor: [], indoor: [], extra: false });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsSending(false);
     }
+    setIsSending(false);
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF8FA] font-sans text-gray-800 overflow-x-hidden flex flex-col">
-      {/* 頂部裝飾 */}
+    <div className="min-h-screen bg-[#FFF8FA] font-sans text-gray-800 overflow-x-hidden flex flex-col text-left">
+      {/* 頂部裝飾條 */}
       <div className="h-2 bg-gradient-to-r from-pink-300 via-rose-300 to-pink-300"></div>
       
+      {/* 標題區 */}
       <header className="py-12 px-6 text-center shrink-0 relative">
         <div className="absolute top-6 left-6 opacity-10"><Home size={80} /></div>
         <div className="relative inline-block mb-4">
@@ -136,9 +97,9 @@ const App = () => {
         </div>
       </header>
 
-      {/* 導覽分頁 */}
+      {/* 導覽分頁按鈕 */}
       <nav className="flex justify-center px-4 mb-10 shrink-0">
-        <div className="bg-white/70 backdrop-blur-md p-2 rounded-[2.5rem] border border-pink-100 flex gap-1 shadow-md w-full max-lg:max-w-lg">
+        <div className="bg-white/70 backdrop-blur-md p-2 rounded-[2.5rem] border border-pink-100 flex gap-1 shadow-md w-full max-w-lg">
           {[
             { id: 'intro', label: '補助計畫', icon: <Info size={18} /> },
             { id: 'safety', label: '安全評估', icon: <Shield size={18} /> },
@@ -159,7 +120,7 @@ const App = () => {
         </div>
       </nav>
 
-      {/* 主要內容 */}
+      {/* 內容區 */}
       <main className="px-6 pb-24 max-w-xl mx-auto flex-grow w-full">
         {submitted ? (
           <div className="bg-white p-14 rounded-[3rem] shadow-xl border border-pink-100 text-center animate-bounceIn">
@@ -179,7 +140,7 @@ const App = () => {
           </div>
         ) : (
           <div className="animate-fadeIn space-y-8">
-            {/* 計畫介紹分頁 */}
+            {/* 分頁一：計畫介紹 */}
             {activeTab === 'intro' && (
               <div className="space-y-8">
                 <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100 text-left relative overflow-hidden">
@@ -195,8 +156,7 @@ const App = () => {
                     <div className="text-gray-700 font-bold text-lg leading-relaxed">
                       工程報價單高達 <span className="text-4xl font-black text-rose-500 underline decoration-pink-300 decoration-4 underline-offset-4">65%</span> 的補助金支援！
                     </div>
-                    {/* 增加審核註記 */}
-                    <div className="text-xs text-rose-400 font-bold mt-2">
+                    <div className="text-sm text-rose-400 font-bold mt-3">
                       ※ 補助資格與撥付金額需經政府相關單位最終審核為準
                     </div>
                   </div>
@@ -221,7 +181,7 @@ const App = () => {
               </div>
             )}
 
-            {/* 安全評估分頁 */}
+            {/* 分頁二：安全評估 */}
             {activeTab === 'safety' && (
               <div className="space-y-8 text-left">
                 <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100">
@@ -235,6 +195,16 @@ const App = () => {
                     <p className="text-sm font-bold text-amber-700 leading-relaxed">
                       重要備註：安全性評估之最終結果<span className="text-rose-500 underline mx-1 decoration-2 font-black">不影響補助申請</span>，請屋主安心進行評估程序。
                     </p>
+                  </div>
+
+                  <div className="mb-8 p-6 bg-gradient-to-r from-rose-500 to-pink-400 rounded-3xl text-white shadow-lg flex items-center justify-between overflow-hidden relative group">
+                    <div className="relative z-10">
+                      <div className="text-xs font-bold opacity-80 uppercase tracking-widest mb-1">Safety Subsidy</div>
+                      <div className="text-2xl font-black">此項目補助 <span className="text-3xl underline decoration-pink-200">15,000</span> 元</div>
+                    </div>
+                    <div className="bg-white/20 p-3 rounded-2xl relative z-10">
+                      <Gift size={32} className="animate-bounce" />
+                    </div>
                   </div>
 
                   <p className="text-base text-gray-600 mb-8 font-bold flex items-center gap-3">
@@ -278,7 +248,7 @@ const App = () => {
               </div>
             )}
 
-            {/* 預約申請分頁 */}
+            {/* 分頁三：預約申請 */}
             {activeTab === 'apply' && (
               <form onSubmit={handleSubmit} className="space-y-8 text-left pb-12">
                 <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100">
@@ -288,7 +258,7 @@ const App = () => {
                   </h2>
                   
                   <div className="space-y-8">
-                    {/* 修繕項目勾選 */}
+                    {/* 室外修繕 */}
                     <div>
                       <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
@@ -312,11 +282,15 @@ const App = () => {
                       </div>
                     </div>
 
+                    {/* 室內修繕 */}
                     <div>
-                      <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3">
+                      <h3 className="text-sm font-black text-pink-500 mb-2 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室內修繕 (可加選)
                       </h3>
+                      <div className="text-xs font-bold text-rose-400 mb-4 ml-8">
+                        ※ 室內修繕項目補助 20 萬元
+                      </div>
                       <div className="space-y-3">
                         {indoorOptions.map(opt => (
                           <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
@@ -335,7 +309,7 @@ const App = () => {
                       </div>
                     </div>
 
-                    {/* 加碼補助選項 */}
+                    {/* 加碼補助 */}
                     <div>
                       <h3 className="text-sm font-black text-rose-500 mb-4 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-rose-300 rounded-full"></div>
@@ -348,7 +322,7 @@ const App = () => {
                           checked={formData.extra}
                           onChange={(e) => setFormData({...formData, extra: e.target.checked})}
                         />
-                        <div className="flex flex-col">
+                        <div className="flex flex-col text-left">
                           <span className="text-base font-black text-rose-600 flex items-center gap-2">
                             符合長照或高齡弱勢 <Star size={14} className="group-hover:rotate-45 transition-transform" />
                           </span>
@@ -357,30 +331,30 @@ const App = () => {
                       </label>
                     </div>
 
-                    {/* 基本資料輸入 */}
+                    {/* 基本資料 */}
                     <div className="space-y-5 pt-8 border-t border-pink-50">
-                      <h3 className="text-sm font-black text-gray-400 ml-2">屋主聯繫資訊</h3>
+                      <h3 className="text-sm font-black text-gray-400 ml-2 uppercase tracking-widest">屋主聯繫資訊</h3>
                       <input 
                         required 
                         type="text" 
                         placeholder="屋主姓名" 
-                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
+                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                       />
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-4 text-left">
                         <input 
                           required 
                           type="tel" 
                           placeholder="電話號碼" 
-                          className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
+                          className="p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
                           value={formData.phone}
                           onChange={(e) => setFormData({...formData, phone: e.target.value})}
                         />
                         <input 
                           type="text" 
                           placeholder="LINE ID" 
-                          className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
+                          className="p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
                           value={formData.lineId}
                           onChange={(e) => setFormData({...formData, lineId: e.target.value})}
                         />
@@ -389,7 +363,7 @@ const App = () => {
                         required 
                         type="text" 
                         placeholder="房屋地址" 
-                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 focus:ring-2 focus:ring-pink-200 outline-none transition-all shadow-inner text-base placeholder:text-gray-300"
+                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
                         value={formData.address}
                         onChange={(e) => setFormData({...formData, address: e.target.value})}
                       />
@@ -398,7 +372,7 @@ const App = () => {
                     <button 
                       disabled={isSending} 
                       type="submit" 
-                      className="w-full py-6 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-black text-xl rounded-[2rem] shadow-lg shadow-rose-100 flex items-center justify-center gap-4 active:scale-95 transition-all disabled:opacity-50"
+                      className="w-full py-6 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-black text-xl rounded-[2rem] shadow-lg flex items-center justify-center gap-4 active:scale-95 transition-all disabled:opacity-50"
                     >
                       {isSending ? <Loader2 className="animate-spin" size={24} /> : <Send size={24} />}
                       {isSending ? '資料傳送中...' : '送出預約申請'}
@@ -411,7 +385,7 @@ const App = () => {
         )}
       </main>
 
-      {/* 頁尾 (移除聯絡人區塊) */}
+      {/* 頁尾 */}
       <footer className="py-12 px-6 border-t border-pink-100 bg-white/60 mt-auto shadow-inner">
         <div className="max-w-xl mx-auto space-y-6">
           <div className="text-center">
@@ -420,8 +394,7 @@ const App = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white/40 p-6 rounded-[1.5rem] border border-pink-50">
-            {/* 電話 */}
-            <a href="tel:0960396086" className="flex items-center gap-3 group transition-all">
+            <a href="tel:0960396086" className="flex items-center gap-3 group transition-all text-left">
               <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all shrink-0">
                 <Phone size={18} />
               </div>
@@ -431,19 +404,17 @@ const App = () => {
               </div>
             </a>
 
-            {/* Email */}
-            <a href="mailto:heheooo@hotmail.com" className="flex items-center gap-3 group transition-all">
+            <a href="mailto:heheooo@hotmail.com" className="flex items-center gap-3 group transition-all text-left">
               <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
                 <Mail size={18} />
               </div>
-              <div className="flex flex-col text-left overflow-hidden">
+              <div className="flex flex-col overflow-hidden text-left">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span>
                 <span className="text-sm font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span>
               </div>
             </a>
 
-            {/* 統編 */}
-            <div className="flex items-center gap-3 group">
+            <div className="flex items-center gap-3 group text-left">
               <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all shrink-0">
                 <Hash size={18} />
               </div>
@@ -463,18 +434,13 @@ const App = () => {
         </div>
       </footer>
 
-      {/* 動畫定義 */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounceIn { 0% { transform: scale(0.9); opacity: 0; } 70% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(1); } }
         .animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .animate-bounceIn { animation: bounceIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1.2) forwards; }
-        
-        /* 隱藏捲軸但保持滾動功能 */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
-        
-        /* 優化表單輸入縮放 */
-        input, textarea, select { font-size: 16px !important; }
+        input { font-size: 16px !important; }
       ` }} />
     </div>
   );
