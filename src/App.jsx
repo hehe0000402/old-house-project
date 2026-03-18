@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Mail, Hash } from 'lucide-react';
+import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Mail, Hash, ExternalLink, FileText } from 'lucide-react';
 
 // --- Firebase 初始化模擬 (確保預覽不報錯) ---
 const App = () => {
@@ -128,7 +128,7 @@ const App = () => {
               <CheckCircle className="text-rose-400" size={50} />
             </div>
             <h2 className="text-3xl font-black text-gray-800">申請已送出！</h2>
-            <p className="text-gray-600 text-lg mt-4 leading-relaxed font-medium">
+            <p className="text-gray-600 text-lg mt-4 leading-relaxed font-medium text-center">
               資料已同步傳送至您的 Google 表單，<br/>郡翔專業團隊將儘速聯繫您。✨
             </p>
             <button 
@@ -150,19 +150,19 @@ const App = () => {
                     政府補助概要
                   </h2>
                   <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-6 rounded-[2rem] mb-8 border border-pink-100 shadow-inner">
-                    <p className="text-rose-600 font-bold flex items-center gap-2 text-base mb-3">
+                    <p className="text-rose-600 font-bold flex items-center gap-2 text-base mb-3 text-left">
                       <Gift size={22} /> 這是您的起家厝大變身的機會
                     </p>
-                    <div className="text-gray-700 font-bold text-lg leading-relaxed">
+                    <div className="text-gray-700 font-bold text-lg leading-relaxed text-left">
                       工程報價單高達 <span className="text-4xl font-black text-rose-500 underline decoration-pink-300 decoration-4 underline-offset-4">65%</span> 的補助金支援！
                     </div>
-                    <div className="text-sm text-rose-400 font-bold mt-3">
+                    <div className="text-sm text-rose-400 font-bold mt-3 text-left">
                       ※ 補助資格與撥付金額需經政府相關單位最終審核為準
                     </div>
                   </div>
                   <div className="space-y-6">
                     <h3 className="text-base font-bold text-gray-400 uppercase tracking-widest border-b border-pink-50 pb-3">申請門檻</h3>
-                    <ul className="space-y-4">
+                    <ul className="space-y-4 text-left">
                       <li className="flex items-start gap-4 text-base text-gray-700 leading-relaxed">
                         <CheckCircle className="text-rose-400 shrink-0 mt-1" size={20} />
                         <span>屋齡需滿 <span className="font-bold text-rose-500">30 年以上</span> 之合法建築物。</span>
@@ -176,6 +176,41 @@ const App = () => {
                         <span>特別注意：違章建築部分不予補助。</span>
                       </li>
                     </ul>
+                  </div>
+
+                  {/* 外部連結按鈕區域 */}
+                  <div className="mt-10 pt-8 border-t border-pink-50 space-y-4">
+                    {/* 內政部國土署官網 */}
+                    <a 
+                      href="https://twur.nlma.gov.tw/zh/theme/main/65" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-pink-500 font-bold hover:bg-pink-50 transition-all group shadow-sm active:scale-[0.98]"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="p-2 bg-pink-50 rounded-lg text-pink-400 group-hover:bg-pink-400 group-hover:text-white transition-colors">
+                          <ExternalLink size={20} />
+                        </div>
+                        <span className="text-base">內政部國土署：補助專案說明</span>
+                      </div>
+                      <ChevronRight size={20} className="text-pink-200 group-hover:translate-x-1 transition-transform" />
+                    </a>
+
+                    {/* 計畫摺頁下載 */}
+                    <a 
+                      href="https://twur.nlma.gov.tw/resources/website/theme_file/344/%E6%91%BA%E9%A0%81.pdf" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-rose-500 font-bold hover:bg-rose-50 transition-all group shadow-sm active:scale-[0.98]"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="p-2 bg-rose-50 rounded-lg text-rose-400 group-hover:bg-rose-400 group-hover:text-white transition-colors">
+                          <FileText size={20} />
+                        </div>
+                        <span className="text-base">下載補助計畫摺頁 (PDF)</span>
+                      </div>
+                      <ChevronRight size={20} className="text-pink-200 group-hover:translate-x-1 transition-transform" />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -192,13 +227,13 @@ const App = () => {
                   
                   <div className="p-5 bg-amber-50 rounded-[1.5rem] mb-8 border border-amber-100 flex gap-4 shadow-inner">
                     <AlertCircle className="text-amber-500 shrink-0 mt-1" size={22} />
-                    <p className="text-sm font-bold text-amber-700 leading-relaxed">
+                    <p className="text-sm font-bold text-amber-700 leading-relaxed text-left">
                       重要備註：安全性評估之最終結果<span className="text-rose-500 underline mx-1 decoration-2 font-black">不影響補助申請</span>，請屋主安心進行評估程序。
                     </p>
                   </div>
 
                   <div className="mb-8 p-6 bg-gradient-to-r from-rose-500 to-pink-400 rounded-3xl text-white shadow-lg flex items-center justify-between overflow-hidden relative group">
-                    <div className="relative z-10">
+                    <div className="relative z-10 text-left">
                       <div className="text-xs font-bold opacity-80 uppercase tracking-widest mb-1">Safety Subsidy</div>
                       <div className="text-2xl font-black">此項目補助 <span className="text-3xl underline decoration-pink-200">15,000</span> 元</div>
                     </div>
@@ -207,7 +242,7 @@ const App = () => {
                     </div>
                   </div>
 
-                  <p className="text-base text-gray-600 mb-8 font-bold flex items-center gap-3">
+                  <p className="text-base text-gray-600 mb-8 font-bold flex items-center gap-3 text-left">
                     <Star size={20} className="text-pink-300 fill-current" />
                     合作單位：台中市土木技師公會
                   </p>
@@ -215,12 +250,12 @@ const App = () => {
                   <div className="overflow-hidden rounded-[2rem] border border-pink-50 shadow-md">
                     <table className="w-full text-base">
                       <thead className="bg-pink-100/50">
-                        <tr className="text-sm font-bold text-gray-500">
+                        <tr className="text-sm font-bold text-gray-500 text-left">
                           <td className="p-5">收費項目</td>
                           <td className="p-5 text-right">收費標準</td>
                         </tr>
                       </thead>
-                      <tbody className="bg-white">
+                      <tbody className="bg-white text-left">
                         <tr className="border-b border-pink-50">
                           <td className="p-5 font-bold text-gray-700">掛號費</td>
                           <td className="p-5 text-right font-black text-gray-800 text-lg">2,000 元/案</td>
@@ -234,7 +269,7 @@ const App = () => {
                           <td className="p-5 text-right font-black text-rose-500 text-lg">20,000 元/案</td>
                         </tr>
                         <tr>
-                          <td className="p-5 font-bold text-gray-700">
+                          <td className="p-5 font-bold text-gray-700 text-left">
                             現場量測費
                             <div className="text-xs text-gray-400 font-normal mt-2 leading-relaxed">※ 若原始無圖說需現場測繪</div>
                           </td>
@@ -260,13 +295,13 @@ const App = () => {
                   <div className="space-y-8">
                     {/* 室外修繕 */}
                     <div>
-                      <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3">
+                      <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3 text-left">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室外修繕 (必選一項)
                       </h3>
                       <div className="space-y-3">
                         {outdoorOptions.map(opt => (
-                          <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
+                          <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all text-left">
                             <input 
                               type="checkbox" 
                               className="w-6 h-6 accent-rose-400 rounded-lg border-pink-200"
@@ -284,19 +319,19 @@ const App = () => {
 
                     {/* 室內修繕 */}
                     <div>
-                      <h3 className="text-sm font-black text-pink-500 mb-2 ml-2 flex items-center gap-3">
+                      <h3 className="text-sm font-black text-pink-500 mb-2 ml-2 flex items-center gap-3 text-left">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室內修繕 (可加選)
                       </h3>
-                      <div className="text-xs font-bold text-rose-400 mb-4 ml-8">
+                      <div className="text-xs font-bold text-rose-400 mb-4 ml-8 text-left">
                         ※ 室內修繕項目補助 20 萬元
                       </div>
-                      <div className="space-y-3">
+                      <div className="space-y-3 text-left">
                         {indoorOptions.map(opt => (
                           <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
                             <input 
                               type="checkbox" 
-                              className="w-6 h-6 accent-rose-400 rounded-lg border-pink-200"
+                              className="w-6 h-6 accent-rose-400 rounded-lg"
                               checked={formData.indoor.includes(opt.id)}
                               onChange={() => handleCheckbox('indoor', opt.id)}
                             />
@@ -311,18 +346,18 @@ const App = () => {
 
                     {/* 加碼補助 */}
                     <div>
-                      <h3 className="text-sm font-black text-rose-500 mb-4 ml-2 flex items-center gap-3">
+                      <h3 className="text-sm font-black text-rose-500 mb-4 ml-2 flex items-center gap-3 text-left">
                         <div className="w-2 h-4 bg-rose-300 rounded-full"></div>
                         特殊補助對象 (可加選)
                       </h3>
-                      <label className="flex items-center gap-5 p-6 bg-rose-50 rounded-[2rem] cursor-pointer border border-rose-100 active:bg-rose-100 transition-colors shadow-sm group">
+                      <label className="flex items-center gap-5 p-6 bg-rose-50 rounded-[2rem] cursor-pointer border border-rose-100 active:bg-rose-100 transition-colors shadow-sm group text-left">
                         <input 
                           type="checkbox" 
                           className="w-7 h-7 accent-rose-500 rounded-lg"
                           checked={formData.extra}
                           onChange={(e) => setFormData({...formData, extra: e.target.checked})}
                         />
-                        <div className="flex flex-col text-left">
+                        <div className="flex flex-col">
                           <span className="text-base font-black text-rose-600 flex items-center gap-2">
                             符合長照或高齡弱勢 <Star size={14} className="group-hover:rotate-45 transition-transform" />
                           </span>
@@ -332,8 +367,8 @@ const App = () => {
                     </div>
 
                     {/* 基本資料 */}
-                    <div className="space-y-5 pt-8 border-t border-pink-50">
-                      <h3 className="text-sm font-black text-gray-400 ml-2 uppercase tracking-widest">屋主聯繫資訊</h3>
+                    <div className="space-y-5 pt-8 border-t border-pink-50 text-left">
+                      <h3 className="text-sm font-black text-gray-400 ml-2 text-left uppercase tracking-widest">屋主聯繫資訊</h3>
                       <input 
                         required 
                         type="text" 
@@ -342,7 +377,7 @@ const App = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                       />
-                      <div className="grid grid-cols-2 gap-4 text-left">
+                      <div className="grid grid-cols-2 gap-4">
                         <input 
                           required 
                           type="tel" 
@@ -398,7 +433,7 @@ const App = () => {
               <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all shrink-0">
                 <Phone size={18} />
               </div>
-              <div className="flex flex-col text-left">
+              <div className="flex flex-col overflow-hidden">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span>
                 <span className="text-base font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span>
               </div>
@@ -408,7 +443,7 @@ const App = () => {
               <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
                 <Mail size={18} />
               </div>
-              <div className="flex flex-col overflow-hidden text-left">
+              <div className="flex flex-col overflow-hidden">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span>
                 <span className="text-sm font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span>
               </div>
@@ -418,7 +453,7 @@ const App = () => {
               <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all shrink-0">
                 <Hash size={18} />
               </div>
-              <div className="flex flex-col text-left">
+              <div className="flex flex-col overflow-hidden">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">統一編號</span>
                 <span className="text-base font-black text-gray-700 tracking-widest">54756209</span>
               </div>
