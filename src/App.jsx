@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Mail, Hash, ExternalLink, FileText, FileCheck, Files, CreditCard, Download } from 'lucide-react';
+import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Mail, Hash, ExternalLink, FileText, FileCheck, Files, Download } from 'lucide-react';
 
 // --- 網頁主要組件 ---
 const App = () => {
@@ -232,7 +232,7 @@ const App = () => {
                   </p>
 
                   <div className="mb-10 bg-gray-50/50 p-8 rounded-[2rem] border border-pink-50 text-left">
-                    <h3 className="text-lg font-black text-gray-700 mb-5 flex items-center gap-2">
+                    <h3 className="text-lg font-black text-gray-700 mb-5 flex items-center gap-2 text-left">
                       <FileCheck className="text-pink-400" size={20} /> 報價所需準備資料
                     </h3>
                     <ul className="space-y-4 text-base">
@@ -260,7 +260,7 @@ const App = () => {
                     </ul>
                   </div>
 
-                  <div className="overflow-hidden rounded-[2rem] border border-pink-50 shadow-md mb-6">
+                  <div className="overflow-hidden rounded-[2rem] border border-pink-50 shadow-md mb-10">
                     <table className="w-full text-base">
                       <thead className="bg-pink-100/50 text-left">
                         <tr className="text-sm font-bold text-gray-500">
@@ -290,17 +290,6 @@ const App = () => {
                         </tr>
                       </tbody>
                     </table>
-                  </div>
-
-                  <div className="mb-10 p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-left font-bold">
-                    <h3 className="text-sm font-black text-gray-500 mb-3 flex items-center gap-2">
-                      <CreditCard size={16} /> 匯款帳號資訊
-                    </h3>
-                    <div className="text-base space-y-1 text-gray-600">
-                      <p>銀行：台新銀行 (812) 北台中分行</p>
-                      <p>帳號：2027-01-0000989-3</p>
-                      <p>戶名：社團法人臺中市土木技師公會</p>
-                    </div>
                   </div>
 
                   {/* 文件下載區：確保 href 與您上傳到 public 的檔案名一致 */}
@@ -347,8 +336,7 @@ const App = () => {
                     填寫預約資料
                   </h2>
                   
-                  <div className="space-y-8">
-                    {/* 室外修繕 */}
+                  <div className="space-y-8 text-left">
                     <div>
                       <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
@@ -367,13 +355,12 @@ const App = () => {
                       </div>
                     </div>
 
-                    {/* 室內修繕 */}
                     <div>
                       <h3 className="text-sm font-black text-pink-500 mb-2 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室內修繕 (可加選)
                       </h3>
-                      <div className="text-xs font-bold text-rose-400 mb-4 ml-8 text-left">※ 室內修繕項目補助 20 萬元</div>
+                      <div className="text-xs font-bold text-rose-400 mb-4 ml-8">※ 室內修繕項目補助 20 萬元</div>
                       <div className="space-y-3">
                         {indoorOptions.map(opt => (
                           <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all text-left">
@@ -387,7 +374,6 @@ const App = () => {
                       </div>
                     </div>
 
-                    {/* 加碼補助選項 */}
                     <div>
                       <h3 className="text-sm font-black text-rose-500 mb-4 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-rose-300 rounded-full"></div>
@@ -402,7 +388,6 @@ const App = () => {
                       </label>
                     </div>
 
-                    {/* 基本資料輸入 */}
                     <div className="space-y-5 pt-8 border-t border-pink-50">
                       <h3 className="text-sm font-black text-gray-400 ml-2 uppercase tracking-widest text-left">屋主聯繫資訊</h3>
                       <input required type="text" placeholder="屋主姓名" className="w-full p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
@@ -435,15 +420,24 @@ const App = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white/40 p-6 rounded-[1.5rem] border border-pink-50">
             <a href="tel:0960396086" className="flex items-center gap-3 group transition-all text-left">
               <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all shrink-0"><Phone size={18} /></div>
-              <div className="flex flex-col"><span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span><span className="text-base font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span></div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span>
+                <span className="text-base font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span>
+              </div>
             </a>
             <a href="mailto:heheooo@hotmail.com" className="flex items-center gap-3 group transition-all text-left">
               <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0"><Mail size={18} /></div>
-              <div className="flex flex-col overflow-hidden"><span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span><span className="text-sm font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span></div>
+              <div className="flex flex-col overflow-hidden text-left">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span>
+                <span className="text-sm font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span>
+              </div>
             </a>
             <div className="flex items-center gap-3 group text-left">
               <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all shrink-0"><Hash size={18} /></div>
-              <div className="flex flex-col"><span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">統一編號</span><span className="text-base font-black text-gray-700 tracking-widest">54756209</span></div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">統一編號</span>
+                <span className="text-base font-black text-gray-700 tracking-widest">54756209</span>
+              </div>
             </div>
           </div>
           <div className="text-center pt-2">
