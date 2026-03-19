@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Mail, Hash, ExternalLink, FileText } from 'lucide-react';
+import { Heart, Home, Shield, CheckCircle, Send, Phone, MapPin, ClipboardList, Info, ChevronRight, Star, Loader2, Gift, AlertCircle, MessageCircle, Mail, Hash, ExternalLink, FileText, FileCheck, Files, CreditCard, Download } from 'lucide-react';
 
-// --- Firebase 初始化模擬 (確保預覽不報錯) ---
+// --- 網頁主要組件 ---
 const App = () => {
   const [activeTab, setActiveTab] = useState('intro');
   const [isSending, setIsSending] = useState(false);
@@ -88,7 +88,7 @@ const App = () => {
         <div className="absolute top-6 left-6 opacity-10"><Home size={80} /></div>
         <div className="relative inline-block mb-4">
           <Heart className="text-rose-400 fill-rose-400 absolute -top-5 -right-6 rotate-12" size={28} />
-          <h1 className="text-4xl font-black text-gray-800 tracking-tight">老屋延壽申請</h1>
+          <h1 className="text-4xl font-black text-gray-800 tracking-tight text-center">老屋延壽申請</h1>
         </div>
         <div className="text-pink-500 font-bold text-base tracking-[0.2em] flex items-center justify-center gap-2">
           <ChevronRight size={18} className="text-pink-300" />
@@ -127,13 +127,13 @@ const App = () => {
             <div className="w-24 h-24 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-8">
               <CheckCircle className="text-rose-400" size={50} />
             </div>
-            <h2 className="text-3xl font-black text-gray-800">申請已送出！</h2>
+            <h2 className="text-3xl font-black text-gray-800 text-center">申請已送出！</h2>
             <p className="text-gray-600 text-lg mt-4 leading-relaxed font-medium text-center">
               資料已同步傳送至您的 Google 表單，<br/>郡翔專業團隊將儘速聯繫您。✨
             </p>
             <button 
               onClick={() => {setSubmitted(false); setActiveTab('intro')}} 
-              className="mt-10 px-12 py-4 bg-rose-50 text-rose-500 font-bold text-lg rounded-2xl active:scale-95 transition-all shadow-sm"
+              className="mt-10 px-12 py-4 bg-rose-50 text-rose-500 font-bold text-lg rounded-2xl active:scale-95 transition-all shadow-sm mx-auto block"
             >
               返回首頁
             </button>
@@ -180,36 +180,20 @@ const App = () => {
 
                   {/* 外部連結按鈕區域 */}
                   <div className="mt-10 pt-8 border-t border-pink-50 space-y-4">
-                    {/* 內政部國土署官網 */}
-                    <a 
-                      href="https://twur.nlma.gov.tw/zh/theme/main/65" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-pink-500 font-bold hover:bg-pink-50 transition-all group shadow-sm active:scale-[0.98]"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="p-2 bg-pink-50 rounded-lg text-pink-400 group-hover:bg-pink-400 group-hover:text-white transition-colors">
-                          <ExternalLink size={20} />
-                        </div>
+                    <a href="https://twur.nlma.gov.tw/zh/theme/main/65" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-pink-500 font-bold hover:bg-pink-50 transition-all group shadow-sm active:scale-[0.98]">
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="p-2 bg-pink-50 rounded-lg text-pink-400 group-hover:bg-pink-400 group-hover:text-white transition-colors"><ExternalLink size={20} /></div>
                         <span className="text-base">內政部國土署：補助專案說明</span>
                       </div>
-                      <ChevronRight size={20} className="text-pink-200 group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight size={20} className="text-pink-200 group-hover:translate-x-1 transition-transform shrink-0" />
                     </a>
-
-                    {/* 計畫摺頁下載 */}
-                    <a 
-                      href="https://twur.nlma.gov.tw/resources/website/theme_file/344/%E6%91%BA%E9%A0%81.pdf" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-rose-500 font-bold hover:bg-rose-50 transition-all group shadow-sm active:scale-[0.98]"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="p-2 bg-rose-50 rounded-lg text-rose-400 group-hover:bg-rose-400 group-hover:text-white transition-colors">
-                          <FileText size={20} />
-                        </div>
+                    {/* 直接連結到國土署 PDF，移除 Chrome Extension 前綴確保相容性 */}
+                    <a href="https://twur.nlma.gov.tw/resources/website/theme_file/344/%E6%91%BA%E9%A0%81.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-rose-500 font-bold hover:bg-pink-50 transition-all group shadow-sm active:scale-[0.98]">
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="p-2 bg-rose-50 rounded-lg text-rose-400 group-hover:bg-rose-400 group-hover:text-white transition-colors"><FileText size={20} /></div>
                         <span className="text-base">下載補助計畫摺頁 (PDF)</span>
                       </div>
-                      <ChevronRight size={20} className="text-pink-200 group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight size={20} className="text-pink-200 group-hover:translate-x-1 transition-transform shrink-0" />
                     </a>
                   </div>
                 </div>
@@ -219,15 +203,15 @@ const App = () => {
             {/* 分頁二：安全評估 */}
             {activeTab === 'safety' && (
               <div className="space-y-8 text-left">
-                <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100">
+                <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-pink-100 relative overflow-hidden">
                   <h2 className="text-2xl font-black text-gray-800 mb-6 flex items-center gap-3">
                     <Shield className="text-rose-400" size={26} />
                     結構安全性能評估
                   </h2>
                   
-                  <div className="p-5 bg-amber-50 rounded-[1.5rem] mb-8 border border-amber-100 flex gap-4 shadow-inner">
+                  <div className="p-5 bg-amber-50 rounded-[1.5rem] mb-8 border border-amber-100 flex gap-4 shadow-inner text-left">
                     <AlertCircle className="text-amber-500 shrink-0 mt-1" size={22} />
-                    <p className="text-sm font-bold text-amber-700 leading-relaxed text-left">
+                    <p className="text-sm font-bold text-amber-700 leading-relaxed">
                       重要備註：安全性評估之最終結果<span className="text-rose-500 underline mx-1 decoration-2 font-black">不影響補助申請</span>，請屋主安心進行評估程序。
                     </p>
                   </div>
@@ -242,15 +226,44 @@ const App = () => {
                     </div>
                   </div>
 
-                  <p className="text-base text-gray-600 mb-8 font-bold flex items-center gap-3 text-left">
+                  <p className="text-base text-gray-600 mb-6 font-bold flex items-center gap-3 text-left">
                     <Star size={20} className="text-pink-300 fill-current" />
                     合作單位：台中市土木技師公會
                   </p>
 
-                  <div className="overflow-hidden rounded-[2rem] border border-pink-50 shadow-md">
+                  <div className="mb-10 bg-gray-50/50 p-8 rounded-[2rem] border border-pink-50 text-left">
+                    <h3 className="text-lg font-black text-gray-700 mb-5 flex items-center gap-2">
+                      <FileCheck className="text-pink-400" size={20} /> 報價所需準備資料
+                    </h3>
+                    <ul className="space-y-4 text-base">
+                      <li className="flex items-start gap-3 text-left">
+                        <div className="w-6 h-6 rounded-full bg-white border border-pink-200 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold text-pink-400">1</div>
+                        <div>
+                          <span className="font-bold text-gray-700">建築物基本資訊</span>
+                          <p className="text-sm text-gray-400 mt-1">需提供建築物詳細地址或建號</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3 text-left">
+                        <div className="w-6 h-6 rounded-full bg-white border border-pink-200 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold text-pink-400">2</div>
+                        <div>
+                          <span className="font-bold text-gray-700">合法建築物證明 (至少提供一項)</span>
+                          <p className="text-sm text-gray-500 mt-1">建築物使用執照、第一類建物謄本或稅籍證明</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3 text-rose-400 text-left">
+                        <div className="w-6 h-6 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">3</div>
+                        <div>
+                          <span className="font-bold">原始設計圖說</span>
+                          <p className="text-sm mt-1">建築圖、結構圖、配筋圖等 (確定執行後再提供即可)</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="overflow-hidden rounded-[2rem] border border-pink-50 shadow-md mb-6">
                     <table className="w-full text-base">
-                      <thead className="bg-pink-100/50">
-                        <tr className="text-sm font-bold text-gray-500 text-left">
+                      <thead className="bg-pink-100/50 text-left">
+                        <tr className="text-sm font-bold text-gray-500">
                           <td className="p-5">收費項目</td>
                           <td className="p-5 text-right">收費標準</td>
                         </tr>
@@ -271,14 +284,56 @@ const App = () => {
                         <tr>
                           <td className="p-5 font-bold text-gray-700 text-left">
                             現場量測費
-                            <div className="text-xs text-gray-400 font-normal mt-2 leading-relaxed">※ 若原始無圖說需現場測繪</div>
+                            <div className="text-xs text-gray-400 font-normal mt-2 leading-relaxed text-left">※ 若原始無圖說需現場測繪</div>
                           </td>
                           <td className="p-5 text-right font-black text-gray-800 text-lg">5,000 元</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                  <p className="text-xs text-gray-400 mt-6 text-right font-medium">※ 以上費用依台中市土木技師公會最終報價為準</p>
+
+                  <div className="mb-10 p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-left font-bold">
+                    <h3 className="text-sm font-black text-gray-500 mb-3 flex items-center gap-2">
+                      <CreditCard size={16} /> 匯款帳號資訊
+                    </h3>
+                    <div className="text-base space-y-1 text-gray-600">
+                      <p>銀行：台新銀行 (812) 北台中分行</p>
+                      <p>帳號：2027-01-0000989-3</p>
+                      <p>戶名：社團法人臺中市土木技師公會</p>
+                    </div>
+                  </div>
+
+                  {/* 文件下載區：確保 href 與您上傳到 public 的檔案名一致 */}
+                  <div className="space-y-3 mt-10 border-t border-pink-50 pt-8">
+                    <p className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-widest text-left">官方申請文件下載</p>
+                    
+                    <a href="/apply_info.pdf" download className="w-full flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-pink-500 font-bold hover:bg-pink-50 transition-all group shadow-sm active:scale-[0.98]">
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="p-2 bg-pink-50 rounded-lg text-pink-400 group-hover:bg-pink-400 group-hover:text-white transition-colors"><Files size={20} /></div>
+                        <div className="flex flex-col">
+                          <span className="text-base">結構性能評估申請相關事項</span>
+                          <span className="text-[10px] text-gray-400 font-normal">整理報價所需資料說明</span>
+                        </div>
+                      </div>
+                      <Download size={20} className="text-pink-200 group-hover:translate-y-0.5 transition-transform shrink-0" />
+                    </a>
+
+                    <a href="/apply_form.pdf" download className="w-full flex items-center justify-between p-5 bg-white border-2 border-pink-100 rounded-2xl text-rose-500 font-bold hover:bg-pink-50 transition-all group shadow-sm active:scale-[0.98]">
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="p-2 bg-rose-50 rounded-lg text-rose-400 group-hover:bg-rose-400 group-hover:text-white transition-colors"><FileCheck size={20} /></div>
+                        <div className="flex flex-col">
+                          <span className="text-base">評估申請書下載 (公會版)</span>
+                          <span className="text-[10px] text-gray-400 font-normal">需填妥資料、用印並彩色掃描回傳</span>
+                        </div>
+                      </div>
+                      <Download size={20} className="text-rose-200 group-hover:translate-y-0.5 transition-transform shrink-0" />
+                    </a>
+                  </div>
+                  
+                  <p className="text-xs text-gray-400 mt-8 text-right font-medium leading-relaxed">
+                    ※ 以上收費與程序依台中市土木技師公會正式規章為準<br/>
+                    ※ 申請書填妥後請彩色掃描回傳以利後續掛件
+                  </p>
                 </div>
               </div>
             )}
@@ -295,19 +350,14 @@ const App = () => {
                   <div className="space-y-8">
                     {/* 室外修繕 */}
                     <div>
-                      <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3 text-left">
+                      <h3 className="text-sm font-black text-pink-500 mb-4 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室外修繕 (必選一項)
                       </h3>
                       <div className="space-y-3">
                         {outdoorOptions.map(opt => (
                           <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all text-left">
-                            <input 
-                              type="checkbox" 
-                              className="w-6 h-6 accent-rose-400 rounded-lg border-pink-200"
-                              checked={formData.outdoor.includes(opt.id)}
-                              onChange={() => handleCheckbox('outdoor', opt.id)}
-                            />
+                            <input type="checkbox" className="w-6 h-6 accent-rose-400 rounded-lg border-pink-200" checked={formData.outdoor.includes(opt.id)} onChange={() => handleCheckbox('outdoor', opt.id)} />
                             <div className="ml-4">
                               <div className="text-base font-bold text-gray-700">{opt.label}</div>
                               <div className="text-xs text-rose-400 mt-1">{opt.desc}</div>
@@ -319,22 +369,15 @@ const App = () => {
 
                     {/* 室內修繕 */}
                     <div>
-                      <h3 className="text-sm font-black text-pink-500 mb-2 ml-2 flex items-center gap-3 text-left">
+                      <h3 className="text-sm font-black text-pink-500 mb-2 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-pink-300 rounded-full"></div>
                         室內修繕 (可加選)
                       </h3>
-                      <div className="text-xs font-bold text-rose-400 mb-4 ml-8 text-left">
-                        ※ 室內修繕項目補助 20 萬元
-                      </div>
-                      <div className="space-y-3 text-left">
+                      <div className="text-xs font-bold text-rose-400 mb-4 ml-8 text-left">※ 室內修繕項目補助 20 萬元</div>
+                      <div className="space-y-3">
                         {indoorOptions.map(opt => (
-                          <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all">
-                            <input 
-                              type="checkbox" 
-                              className="w-6 h-6 accent-rose-400 rounded-lg"
-                              checked={formData.indoor.includes(opt.id)}
-                              onChange={() => handleCheckbox('indoor', opt.id)}
-                            />
+                          <label key={opt.id} className="flex items-center p-5 rounded-[1.5rem] bg-pink-50/30 border border-pink-100 cursor-pointer active:scale-[0.98] transition-all text-left">
+                            <input type="checkbox" className="w-6 h-6 accent-rose-400 rounded-lg border-pink-200" checked={formData.indoor.includes(opt.id)} onChange={() => handleCheckbox('indoor', opt.id)} />
                             <div className="ml-4">
                               <div className="text-base font-bold text-gray-700">{opt.label}</div>
                               <div className="text-xs text-rose-400 mt-1">{opt.desc}</div>
@@ -344,71 +387,33 @@ const App = () => {
                       </div>
                     </div>
 
-                    {/* 加碼補助 */}
+                    {/* 加碼補助選項 */}
                     <div>
-                      <h3 className="text-sm font-black text-rose-500 mb-4 ml-2 flex items-center gap-3 text-left">
+                      <h3 className="text-sm font-black text-rose-500 mb-4 ml-2 flex items-center gap-3">
                         <div className="w-2 h-4 bg-rose-300 rounded-full"></div>
                         特殊補助對象 (可加選)
                       </h3>
-                      <label className="flex items-center gap-5 p-6 bg-rose-50 rounded-[2rem] cursor-pointer border border-rose-100 active:bg-rose-100 transition-colors shadow-sm group text-left">
-                        <input 
-                          type="checkbox" 
-                          className="w-7 h-7 accent-rose-500 rounded-lg"
-                          checked={formData.extra}
-                          onChange={(e) => setFormData({...formData, extra: e.target.checked})}
-                        />
-                        <div className="flex flex-col">
-                          <span className="text-base font-black text-rose-600 flex items-center gap-2">
-                            符合長照或高齡弱勢 <Star size={14} className="group-hover:rotate-45 transition-transform" />
-                          </span>
-                          <span className="text-xs text-rose-400 font-bold mt-1 leading-relaxed">符合條件者可額外補助 10 萬，最高補助 30 萬</span>
+                      <label className="flex items-center gap-5 p-6 bg-rose-50 rounded-[2rem] cursor-pointer border border-rose-100 active:bg-rose-100 transition-colors shadow-sm group">
+                        <input type="checkbox" className="w-7 h-7 accent-rose-500 rounded-lg" checked={formData.extra} onChange={(e) => setFormData({...formData, extra: e.target.checked})} />
+                        <div className="flex flex-col text-left">
+                          <span className="text-base font-black text-rose-600 flex items-center gap-2">符合長照或高齡弱勢 <Star size={14} className="group-hover:rotate-45 transition-transform" /></span>
+                          <span className="text-xs text-rose-400 font-bold mt-1 leading-relaxed text-left">符合條件者可額外補助 10 萬，最高補助 30 萬</span>
                         </div>
                       </label>
                     </div>
 
-                    {/* 基本資料 */}
-                    <div className="space-y-5 pt-8 border-t border-pink-50 text-left">
-                      <h3 className="text-sm font-black text-gray-400 ml-2 text-left uppercase tracking-widest">屋主聯繫資訊</h3>
-                      <input 
-                        required 
-                        type="text" 
-                        placeholder="屋主姓名" 
-                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      />
-                      <div className="grid grid-cols-2 gap-4">
-                        <input 
-                          required 
-                          type="tel" 
-                          placeholder="電話號碼" 
-                          className="p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        />
-                        <input 
-                          type="text" 
-                          placeholder="LINE ID" 
-                          className="p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
-                          value={formData.lineId}
-                          onChange={(e) => setFormData({...formData, lineId: e.target.value})}
-                        />
+                    {/* 基本資料輸入 */}
+                    <div className="space-y-5 pt-8 border-t border-pink-50">
+                      <h3 className="text-sm font-black text-gray-400 ml-2 uppercase tracking-widest text-left">屋主聯繫資訊</h3>
+                      <input required type="text" placeholder="屋主姓名" className="w-full p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
+                      <div className="grid grid-cols-2 gap-4 text-left">
+                        <input required type="tel" placeholder="電話號碼" className="p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} />
+                        <input type="text" placeholder="LINE ID" className="p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300" value={formData.lineId} onChange={(e) => setFormData({...formData, lineId: e.target.value})} />
                       </div>
-                      <input 
-                        required 
-                        type="text" 
-                        placeholder="房屋地址" 
-                        className="w-full p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300"
-                        value={formData.address}
-                        onChange={(e) => setFormData({...formData, address: e.target.value})}
-                      />
+                      <input required type="text" placeholder="房屋地址" className="w-full p-5 rounded-2xl bg-gray-50 border-0 outline-none text-base shadow-inner placeholder:text-gray-300" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} />
                     </div>
 
-                    <button 
-                      disabled={isSending} 
-                      type="submit" 
-                      className="w-full py-6 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-black text-xl rounded-[2rem] shadow-lg flex items-center justify-center gap-4 active:scale-95 transition-all disabled:opacity-50"
-                    >
+                    <button disabled={isSending} type="submit" className="w-full py-6 bg-gradient-to-r from-rose-400 to-pink-400 text-white font-black text-xl rounded-[2rem] shadow-lg flex items-center justify-center gap-4 active:scale-95 transition-all disabled:opacity-50">
                       {isSending ? <Loader2 className="animate-spin" size={24} /> : <Send size={24} />}
                       {isSending ? '資料傳送中...' : '送出預約申請'}
                     </button>
@@ -420,55 +425,34 @@ const App = () => {
         )}
       </main>
 
-      {/* 頁尾 */}
-      <footer className="py-12 px-6 border-t border-pink-100 bg-white/60 mt-auto shadow-inner">
+      {/* 頁尾 (聯絡資訊) */}
+      <footer className="py-12 px-6 border-t border-pink-100 bg-white/60 mt-auto shadow-inner text-center">
         <div className="max-w-xl mx-auto space-y-6">
           <div className="text-center">
             <h3 className="text-lg font-black text-gray-800 tracking-wider mb-1">郡翔室內裝修有限公司</h3>
             <p className="text-pink-400 font-bold text-[10px] tracking-[0.2em] uppercase">Jun Xiang Interior Decoration</p>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white/40 p-6 rounded-[1.5rem] border border-pink-50">
             <a href="tel:0960396086" className="flex items-center gap-3 group transition-all text-left">
-              <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all shrink-0">
-                <Phone size={18} />
-              </div>
-              <div className="flex flex-col overflow-hidden">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span>
-                <span className="text-base font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span>
-              </div>
+              <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all shrink-0"><Phone size={18} /></div>
+              <div className="flex flex-col"><span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">聯絡電話</span><span className="text-base font-black text-gray-700 group-hover:text-rose-500">0960-396-086</span></div>
             </a>
-
             <a href="mailto:heheooo@hotmail.com" className="flex items-center gap-3 group transition-all text-left">
-              <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
-                <Mail size={18} />
-              </div>
-              <div className="flex flex-col overflow-hidden">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span>
-                <span className="text-sm font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span>
-              </div>
+              <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0"><Mail size={18} /></div>
+              <div className="flex flex-col overflow-hidden"><span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">EMAIL</span><span className="text-sm font-black text-gray-700 truncate group-hover:text-pink-500">heheooo@hotmail.com</span></div>
             </a>
-
             <div className="flex items-center gap-3 group text-left">
-              <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all shrink-0">
-                <Hash size={18} />
-              </div>
-              <div className="flex flex-col overflow-hidden">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">統一編號</span>
-                <span className="text-base font-black text-gray-700 tracking-widest">54756209</span>
-              </div>
+              <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-gray-500 group-hover:text-white transition-all shrink-0"><Hash size={18} /></div>
+              <div className="flex flex-col"><span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">統一編號</span><span className="text-base font-black text-gray-700 tracking-widest">54756209</span></div>
             </div>
           </div>
-
           <div className="text-center pt-2">
-            <p className="text-[10px] text-gray-300 font-medium tracking-widest leading-relaxed">
-              專業室內設計與裝修諮詢 ． 老屋活化專家<br/>
-              © 2024 郡翔室內裝修有限公司 ． 版權所有
-            </p>
+            <p className="text-[10px] text-gray-300 font-medium tracking-widest leading-relaxed">專業室內設計與裝修諮詢 ． 老屋活化專家<br/>© 2024 郡翔室內裝修有限公司 ． 版權所有</p>
           </div>
         </div>
       </footer>
 
+      {/* CSS 動畫與全域樣式 */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounceIn { 0% { transform: scale(0.9); opacity: 0; } 70% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(1); } }
